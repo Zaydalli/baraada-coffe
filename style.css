@@ -253,7 +253,8 @@ header {
 .mobile-menu {
     position: fixed;
     top: 60px;
-    right: -100%;
+    right: 0;
+    transform: translateX(100%);
     width: 100%;
     height: calc(100vh - 60px);
     background-color: var(--bg-light);
@@ -267,7 +268,7 @@ header {
 }
 
 .mobile-menu.active {
-    right: 0;
+    transform: translateX(0);
 }
 
 .mobile-menu a {
@@ -606,7 +607,8 @@ header {
 .cart-drawer {
     position: fixed;
     top: 0;
-    right: -100%;
+    right: 0;
+    transform: translateX(100%);
     width: 100%;
     max-width: 420px;
     height: 100vh;
@@ -615,11 +617,11 @@ header {
     box-shadow: var(--drawer-shadow);
     display: flex;
     flex-direction: column;
-    transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .cart-drawer.active {
-    right: 0;
+    transform: translateX(0);
 }
 
 .cart-header {
