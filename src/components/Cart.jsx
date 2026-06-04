@@ -1,30 +1,25 @@
 import React from 'react';
+import { useCart } from '../context/CartContext.jsx';
 
 /**
  * Cart Component
  * Slide-out drawer displaying cart items, quantity controls, and checkout trigger.
  */
-export default function Cart({
-    isOpen,
-    onClose,
-    cartItems,
-    onUpdateQuantity,
-    onRemoveItem,
-    onCheckout
-}) {
-    const subtotal = cartItems.reduce((acc, curr) => acc + (curr.price * curr.quantity), 0);
+export default function Cart() {
+    const { state, subtotal, dispatch } = useCart();
+    const { cartItems, isCartOpen } = state;
 
     return (
         <>
             {/* Semi-transparent backdrop - clicking it closes the cart */}
             <div
-                className={`cart-drawer-overlay ${isOpen ? 'active' : ''}`}
-                onClick={onClose}
+                className={`cart-drawer-overlay ${isCartOpen ? 'active' : ''}`}
+                onClick={() => dispatch({ type: 'CLOSE_CART' })}
                 aria-hidden="true"
             ></div>
 
             {/* Slide-in Cart Drawer */}
-            <div className={`cart-drawer ${isOpen ? 'active' : ''}`} role="dialog" aria-modal="true" aria-label="Shopping Bag">
+            <div className={`cart-drawer ${isCartOpen ? 'active' : ''}`} role="dialog" aria-modal="true" aria-label="Shopping Bag">
 
                 {/* Cart Header */}
                 <div className="cart-header">
@@ -34,7 +29,7 @@ export default function Cart({
                     </h2>
                     <button
                         className="btn-close-cart"
-                        onClick={onClose}
+                        onClick={() => dispatch({ type: 'CLOSE_CART' })}
                         aria-label="Close cart"
                         id="close-cart-btn"
                     >
@@ -60,7 +55,7 @@ export default function Cart({
                                         <div className="quantity-adjuster">
                                             <button
                                                 className="qty-btn"
-                                                onClick={() => onUpdateQuantity(item.id, item.quantity - 1)}
+                                                onClick={() => dispatch({ type: 'UPDATE_QUANTITY', payload: { id: item.id, quantity: item.quantity - 1 } })}
                                                 aria-label="Decrease quantity"
                                                 id={`dec-qty-${item.id}`}
                                             >
@@ -69,7 +64,7 @@ export default function Cart({
                                             <span className="qty-num">{item.quantity}</span>
                                             <button
                                                 className="qty-btn"
-                                                onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
+                                                onClick={() => dispatch({ type: 'UPDATE_QUANTITY', payload: { id: item.id, quantity: item.quantity + 1 } })}
                                                 aria-label="Increase quantity"
                                                 id={`inc-qty-${item.id}`}
                                             >
@@ -80,7 +75,7 @@ export default function Cart({
                                         {/* Remove Item */}
                                         <button
                                             className="btn-remove-item"
-                                            onClick={() => onRemoveItem(item.id)}
+                                            onClick={() => dispatch({ type: 'REMOVE_ITEM', payload: item.id })}
                                             aria-label={`Remove ${item.name} from cart`}
                                             id={`remove-item-${item.id}`}
                                         >
@@ -111,7 +106,7 @@ export default function Cart({
                         </div>
                         <button
                             className="btn-checkout"
-                            onClick={onCheckout}
+                            onClick={() => dispatch({ type: 'CHECKOUT' })}
                             id="checkout-submit-btn"
                         >
                             Proceed to Checkout

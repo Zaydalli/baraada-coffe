@@ -1,81 +1,28 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import Navbar from './components/Navbar.jsx';
 import Hero from './components/Hero.jsx';
 import FeaturedMenu from './components/FeaturedMenu.jsx';
 import Story from './components/Story.jsx';
 import Cart from './components/Cart.jsx';
 import CheckoutModal from './components/CheckoutModal.jsx';
+import { useCart } from './context/CartContext.jsx';
 
 /**
  * Main App Component
- * Acts as the single state orchestrator for Cart Items, Search, Mobile Menu, and Checkout.
+ * Acts as the single state orchestrator for Search and Mobile Menu.
+ * Cart and Checkout state are now handled by CartContext.
  */
 export default function App() {
-    const [cart, setCart] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
-    const [isCartOpen, setIsCartOpen] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [receiptData, setReceiptData] = useState(null);
-
-    // Compute total item count for cart badge display
-    const cartCount = useMemo(() => {
-        return cart.reduce((acc, curr) => acc + curr.quantity, 0);
-    }, [cart]);
-
-    // Add an item to the cart (or increment quantity if already exists)
-    const handleAddToCart = (product) => {
-        setCart(prevCart => {
-            const existingProduct = prevCart.find(item => item.id === product.id);
-            if (existingProduct) {
-                return prevCart.map(item =>
-                    item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
-                );
-            }
-            return [...prevCart, { ...product, quantity: 1 }];
-        });
-        // Auto-open cart drawer for immediate feedback
-        setIsCartOpen(true);
-    };
-
-    // Update item quantity (remove if quantity reaches 0)
-    const handleUpdateQuantity = (productId, newQuantity) => {
-        if (newQuantity <= 0) {
-            handleRemoveItem(productId);
-            return;
-        }
-        setCart(prevCart =>
-            prevCart.map(item =>
-                item.id === productId ? { ...item, quantity: newQuantity } : item
-            )
-        );
-    };
-
-    // Remove a specific item from cart
-    const handleRemoveItem = (productId) => {
-        setCart(prevCart => prevCart.filter(item => item.id !== productId));
-    };
-
-    // Trigger simulated checkout: save receipt, clear cart, show modal
-    const handleCheckout = () => {
-        const subtotal = cart.reduce((acc, curr) => acc + (curr.price * curr.quantity), 0);
-        const tax = subtotal * 0.08;
-        const total = subtotal + tax;
-
-        setReceiptData({ items: [...cart], tax, total });
-        setIsCartOpen(false);
-        setCart([]);
-        setIsModalOpen(true);
-    };
+    const { state, dispatch } = useCart();
 
     return (
         <div className="app-container">
             {/* Sticky Navigation Header */}
             <Navbar
-                cartCount={cartCount}
                 searchQuery={searchQuery}
                 setSearchQuery={setSearchQuery}
-                onOpenCart={() => setIsCartOpen(true)}
                 isMobileMenuOpen={isMobileMenuOpen}
                 setIsMobileMenuOpen={setIsMobileMenuOpen}
             />
@@ -86,7 +33,6 @@ export default function App() {
 
                 {/* Interactive Menu with Filters and Search */}
                 <FeaturedMenu
-                    onAddToCart={handleAddToCart}
                     searchQuery={searchQuery}
                 />
 
@@ -115,20 +61,13 @@ export default function App() {
             </footer>
 
             {/* Slide-out Shopping Cart Drawer */}
-            <Cart
-                isOpen={isCartOpen}
-                onClose={() => setIsCartOpen(false)}
-                cartItems={cart}
-                onUpdateQuantity={handleUpdateQuantity}
-                onRemoveItem={handleRemoveItem}
-                onCheckout={handleCheckout}
-            />
+            <Cart />
 
             {/* Checkout Success Modal */}
             <CheckoutModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                receipt={receiptData}
+                isOpen={state.isModalOpen}
+                onClose={() => dispatch({ type: 'CLOSE_MODAL' })}
+                receipt={state.receiptData}
             />
         </div>
     );

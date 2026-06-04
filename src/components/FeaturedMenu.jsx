@@ -50,11 +50,14 @@ const CATEGORIES = [
     { id: 'pastries', label: 'Artisan Pastries' }
 ];
 
+import { useCart } from '../context/CartContext.jsx';
+
 /**
  * FeaturedMenu Component
  * Displays the interactive product grid with category tabs and real-time search filtering.
  */
-export default function FeaturedMenu({ onAddToCart, searchQuery }) {
+export default function FeaturedMenu({ searchQuery }) {
+    const { dispatch } = useCart();
     const [activeCategory, setActiveCategory] = useState('all');
 
     // Filter items by active category tab AND search query simultaneously
@@ -106,7 +109,7 @@ export default function FeaturedMenu({ onAddToCart, searchQuery }) {
                                 <span className="price">${item.price.toFixed(2)}</span>
                                 <button
                                     className="btn-add-cart"
-                                    onClick={() => onAddToCart(item)}
+                                    onClick={() => dispatch({ type: 'ADD_ITEM', payload: item })}
                                     aria-label={`Add ${item.name} to cart`}
                                     id={`add-btn-${item.id}`}
                                 >

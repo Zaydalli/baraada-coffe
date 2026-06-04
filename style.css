@@ -411,7 +411,7 @@ header {
 /* Adjust for smaller mobiles */
 @media (max-width: 480px) {
     .menu-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
     }
 }
 
@@ -1045,5 +1045,41 @@ footer p {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* Mobile Responsiveness Overrides */
+@media (max-width: 480px) {
+    .checkout-modal {
+        padding: 1.5rem 1rem;
+        width: 95%;
+        max-height: 85vh;
+    }
+    
+    .checkout-modal h3 {
+        font-size: 1.4rem;
+    }
+    
+    .modal-success-icon {
+        width: 56px;
+        height: 56px;
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+    
+    .cart-item-row {
+        gap: 0.75rem;
+    }
+    
+    .cart-header h2 {
+        font-size: 1.25rem;
+    }
+    
+    .cart-drawer {
+        max-width: 100%;
+    }
+    
+    .hero h1 {
+        font-size: 2.5rem;
     }
 }

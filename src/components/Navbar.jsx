@@ -1,17 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 
+import { useCart } from '../context/CartContext.jsx';
+
 /**
  * Navbar Component
  * Sticky navigation with real-time search, shopping cart badge, and mobile hamburger menu.
  */
 export default function Navbar({
-    cartCount,
     searchQuery,
     setSearchQuery,
-    onOpenCart,
     isMobileMenuOpen,
     setIsMobileMenuOpen
 }) {
+    const { cartCount, dispatch } = useCart();
     const [isSearchActive, setIsSearchActive] = useState(false);
     const searchInputRef = useRef(null);
 
@@ -77,7 +78,7 @@ export default function Navbar({
                     {/* Shopping Bag with Badge Count */}
                     <button
                         className="action-icon-btn"
-                        onClick={onOpenCart}
+                        onClick={() => dispatch({ type: 'OPEN_CART' })}
                         aria-label="Open Shopping Bag"
                         id="cart-bag-btn"
                     >
