@@ -44,7 +44,7 @@ export default function App() {
             <footer id="find-us">
                 <div className="footer-content fade-in">
                     <div className="footer-logo">BARAADA</div>
-                    <p>30th Street, Banaadir District</p>
+                    <p>30th Street, Banaadir, Mogadishu, Somalia</p>
                     <p>Open Daily: 7:00 AM - 8:00 PM</p>
                     <div className="social-icons">
                         <button className="social-icon-btn" aria-label="Baraada Location" id="social-location-btn">
