@@ -36,6 +36,10 @@
     box-sizing: border-box;
 }
 
+html {
+    overflow-x: hidden;
+}
+
 body {
     font-family: var(--font-body);
     color: var(--text-dark);
@@ -48,6 +52,13 @@ body {
     margin: 0 auto;
     /* Thin border to visually separate page from outer background on very wide screens */
     box-shadow: 0 0 60px rgba(111, 78, 55, 0.08);
+}
+
+.app-container {
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+    min-height: 100vh;
 }
 
 a {
@@ -255,6 +266,8 @@ header {
     top: 60px;
     right: 0;
     transform: translateX(100%);
+    opacity: 0;
+    visibility: hidden;
     width: 100%;
     height: calc(100vh - 60px);
     background-color: var(--bg-light);
@@ -269,6 +282,8 @@ header {
 
 .mobile-menu.active {
     transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
 }
 
 .mobile-menu a {
@@ -609,6 +624,8 @@ header {
     top: 0;
     right: 0;
     transform: translateX(100%);
+    opacity: 0;
+    visibility: hidden;
     width: 100%;
     max-width: 420px;
     height: 100vh;
@@ -622,6 +639,8 @@ header {
 
 .cart-drawer.active {
     transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
 }
 
 .cart-header {
