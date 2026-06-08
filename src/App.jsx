@@ -18,7 +18,7 @@ export default function App() {
     const { state, dispatch } = useCart();
 
     return (
-        <div className="app-container">
+        <div className="relative w-full min-h-screen">
             {/* Sticky Navigation Header */}
             <Navbar
                 searchQuery={searchQuery}
@@ -41,19 +41,19 @@ export default function App() {
             </main>
 
             {/* Footer */}
-            <footer id="find-us">
-                <div className="footer-content fade-in">
-                    <div className="footer-logo">BARAADA</div>
+            <footer id="find-us" className="bg-primary-dark text-text-light py-16 px-6 text-center">
+                <div className="max-w-xl mx-auto flex flex-col gap-6 fade-in">
+                    <div className="font-heading text-3xl font-bold tracking-widest mb-4 text-accent">BARAADA</div>
                     <p>30th Street, Banaadir, Mogadishu, Somalia</p>
                     <p>Open Daily: 7:00 AM - 8:00 PM</p>
-                    <div className="social-icons">
-                        <button className="social-icon-btn" aria-label="Baraada Location" id="social-location-btn">
+                    <div className="flex justify-center gap-6 mt-6">
+                        <button className="bg-transparent border border-white/20 w-11 h-11 rounded-full text-text-light text-xl flex items-center justify-center cursor-pointer transition-all duration-300 hover:bg-accent hover:border-accent hover:-translate-y-1" aria-label="Baraada Location" id="social-location-btn">
                             <i className="fas fa-map-marker-alt"></i>
                         </button>
-                        <button className="social-icon-btn" aria-label="Email Us" id="social-email-btn">
+                        <button className="bg-transparent border border-white/20 w-11 h-11 rounded-full text-text-light text-xl flex items-center justify-center cursor-pointer transition-all duration-300 hover:bg-accent hover:border-accent hover:-translate-y-1" aria-label="Email Us" id="social-email-btn">
                             <i className="fas fa-envelope"></i>
                         </button>
-                        <button className="social-icon-btn" aria-label="Call Us" id="social-phone-btn">
+                        <button className="bg-transparent border border-white/20 w-11 h-11 rounded-full text-text-light text-xl flex items-center justify-center cursor-pointer transition-all duration-300 hover:bg-accent hover:border-accent hover:-translate-y-1" aria-label="Call Us" id="social-phone-btn">
                             <i className="fas fa-phone"></i>
                         </button>
                     </div>
