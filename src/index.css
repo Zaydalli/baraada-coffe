@@ -7,9 +7,7 @@
     overflow-x: hidden;
   }
   body {
-    @apply font-body text-text-dark bg-cream overflow-x-hidden mx-auto leading-relaxed;
-    max-width: 1080px;
-    box-shadow: 0 0 60px rgba(111, 78, 55, 0.08);
+    @apply font-body text-text-dark bg-cream overflow-x-hidden leading-relaxed;
   }
   
   /* Adding some specific animations that were in the original CSS */

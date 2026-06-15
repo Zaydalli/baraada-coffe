@@ -105,11 +105,40 @@ export default function Cart() {
                             <span className="font-heading text-[1.3rem] text-accent">${subtotal.toFixed(2)}</span>
                         </div>
                         <button
-                            className="w-full bg-accent text-text-light border-none p-4 rounded-full font-body text-[1rem] font-semibold cursor-pointer transition-all duration-300 shadow-[0_4px_15px_rgba(200,117,34,0.2)] hover:bg-accent-hover hover:-translate-y-[1px] hover:shadow-[0_6px_20px_rgba(200,117,34,0.3)]"
-                            onClick={() => dispatch({ type: 'CHECKOUT' })}
+                            className="w-full bg-cream text-primary border border-primary/20 p-3 rounded-full font-body text-[0.95rem] font-semibold cursor-pointer transition-all duration-300 mb-3 flex items-center justify-center gap-2 hover:bg-primary/5 hover:-translate-y-[1px]"
+                            onClick={() => dispatch({ type: 'CLOSE_CART' })}
+                            id="continue-shopping-btn"
+                        >
+                            <i className="fas fa-plus"></i>
+                            Si aad u dalbato waxyaabo kale halkan taabo
+                        </button>
+                        <button
+                            className="w-full bg-accent text-text-light border-none p-4 rounded-full font-body text-[1rem] font-semibold cursor-pointer transition-all duration-300 shadow-[0_4px_15px_rgba(200,117,34,0.2)] flex items-center justify-center gap-2 hover:bg-accent-hover hover:-translate-y-[1px] hover:shadow-[0_6px_20px_rgba(200,117,34,0.3)]"
+                            onClick={() => {
+                                // Format WhatsApp message
+                                let message = "☕ *New Order from Baraada Coffee* ☕\n\n";
+                                cartItems.forEach(item => {
+                                    message += `${item.quantity}x ${item.name} - $${(item.price * item.quantity).toFixed(2)}\n`;
+                                });
+                                
+                                const tax = subtotal * 0.08;
+                                const total = subtotal + tax;
+                                
+                                message += `\n*Subtotal:* $${subtotal.toFixed(2)}`;
+                                message += `\n*Tax (8%):* $${tax.toFixed(2)}`;
+                                message += `\n*Total:* $${total.toFixed(2)}`;
+                                message += `\n\nFadlan iigu soo diyaari! (Please prepare this for me)`;
+                            
+                                const encodedMessage = encodeURIComponent(message);
+                                const phoneNumber = "252687683651"; // Bedel lambarkan / Replace with your real number
+                            
+                                window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
+                                dispatch({ type: 'CHECKOUT' });
+                            }}
                             id="checkout-submit-btn"
                         >
-                            Proceed to Checkout
+                            <i className="fab fa-whatsapp text-lg"></i>
+                            Order via WhatsApp
                         </button>
                     </div>
                 )}

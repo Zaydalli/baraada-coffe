@@ -1,9 +1,10 @@
 import React, { useState, useMemo } from 'react';
+import PromoBanner from './PromoBanner.jsx';
 
 // Import images as ES module assets (Vite processes and serves these correctly)
 import imgColdBrew from '../../images/cold-brew.jpg';
 import imgOatLatte from '../../images/oat-latte.jpg';
-import imgCroissant from '../../images/croissant.jpg';
+import imgCroissant from '../../images/croissant-with-honey-dipper-basket-wooden-table-flat-lay.jpg';
 import imgMatcha from '../../images/matcha.jpg';
 
 // Curated premium menu items
@@ -39,15 +40,65 @@ const MENU_ITEMS = [
         price: 6.50,
         img: imgMatcha,
         description: 'Ceremonial-grade Japanese Uji Matcha hand-whisked and balanced with steamed organic whole milk and honey.'
+    },
+    {
+        id: 5,
+        name: 'Classic Espresso',
+        category: 'brews',
+        price: 3.50,
+        img: 'https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=500&q=80',
+        description: 'A rich and bold double shot of our house blend espresso with a beautiful golden crema.'
+    },
+    {
+        id: 6,
+        name: 'Caramel Cappuccino',
+        category: 'lattes',
+        price: 5.50,
+        img: 'https://images.unsplash.com/photo-1534778101976-62847782c213?w=500&q=80',
+        description: 'Perfectly balanced espresso and steamed milk foam, drizzled with artisan caramel sauce.'
+    },
+    {
+        id: 7,
+        name: 'Somali Spiced Tea',
+        category: 'tea',
+        price: 3.00,
+        img: 'https://images.unsplash.com/photo-1558160074-4d7d8bdf4256?w=500&q=80',
+        description: 'Traditional Somali tea brewed with cardamom, cinnamon, cloves, and a touch of milk.'
+    },
+    {
+        id: 8,
+        name: 'Beef Sambusa',
+        category: 'snacks',
+        price: 2.50,
+        img: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=500&q=80',
+        description: 'Crispy, golden pastry triangles filled with savory spiced ground beef and fresh herbs.'
+    },
+    {
+        id: 9,
+        name: 'Blueberry Muffin',
+        category: 'pastries',
+        price: 4.00,
+        img: 'https://images.unsplash.com/photo-1607958996333-41aef7caefaa?w=500&q=80',
+        description: 'Freshly baked muffin bursting with wild blueberries and topped with a buttery streusel crumb.'
+    },
+    {
+        id: 10,
+        name: 'Iced Vanilla Mocha',
+        category: 'lattes',
+        price: 6.50,
+        img: 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=500&q=80',
+        description: 'Rich chocolate, house espresso, and vanilla syrup shaken over ice with a splash of cream.'
     }
 ];
 
 // Category tabs definition
 const CATEGORIES = [
     { id: 'all', label: 'All Menu' },
-    { id: 'brews', label: 'Cold Brews' },
-    { id: 'lattes', label: 'Lattes' },
-    { id: 'pastries', label: 'Artisan Pastries' }
+    { id: 'brews', label: 'Coffees & Brews' },
+    { id: 'lattes', label: 'Lattes & Mochas' },
+    { id: 'tea', label: 'Teas' },
+    { id: 'pastries', label: 'Pastries' },
+    { id: 'snacks', label: 'Savory Snacks' }
 ];
 
 import { useCart } from '../context/CartContext.jsx';
@@ -73,6 +124,7 @@ export default function FeaturedMenu({ searchQuery }) {
 
     return (
         <section className="py-[4.5rem] px-[5%] max-w-[1080px] mx-auto" id="menu">
+            <PromoBanner />
             <div className="flex flex-col gap-4 mb-12 md:flex-row md:justify-between md:items-end">
                 <h2 className="font-heading text-[2rem] font-bold text-primary">Featured Menu</h2>
 
